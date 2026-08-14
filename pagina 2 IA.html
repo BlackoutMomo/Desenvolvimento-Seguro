@@ -1,0 +1,439 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Blackout</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 50% 0%, #35105c 0%, #11051d 35%, #050505 70%);
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: linear-gradient(to bottom, black, transparent);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        /* HEADER */
+
+        header {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            height: 150px;
+            margin-bottom: 35px;
+
+            background: rgba(10, 10, 10, 0.75);
+            border: 1px solid #8a2be2;
+            border-radius: 20px;
+
+            box-shadow:
+                0 0 10px #8a2be2,
+                0 0 35px rgba(138, 43, 226, 0.35),
+                inset 0 0 30px rgba(138, 43, 226, 0.08);
+
+            backdrop-filter: blur(10px);
+        }
+
+        header::before,
+        header::after {
+            content: "";
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-color: #d000ff;
+        }
+
+        header::before {
+            top: 12px;
+            left: 12px;
+            border-top: 2px solid;
+            border-left: 2px solid;
+        }
+
+        header::after {
+            right: 12px;
+            bottom: 12px;
+            border-right: 2px solid;
+            border-bottom: 2px solid;
+        }
+
+        #logo {
+            height: 105px;
+            filter:
+                drop-shadow(0 0 5px #8a2be2)
+                drop-shadow(0 0 18px #8a2be2);
+            transition: 0.4s;
+        }
+
+        #logo:hover {
+            transform: scale(1.08) rotate(2deg);
+            filter:
+                drop-shadow(0 0 8px #d000ff)
+                drop-shadow(0 0 30px #8a2be2);
+        }
+
+        /* TITULO */
+
+        .title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            letter-spacing: 12px;
+            color: #fff;
+            text-shadow:
+                0 0 5px #fff,
+                0 0 15px #8a2be2,
+                0 0 35px #8a2be2;
+        }
+
+        .subtitle {
+            margin-top: 10px;
+            color: #a879c9;
+            font-size: 0.75rem;
+            letter-spacing: 5px;
+        }
+
+        /* FORMULARIO */
+
+        form {
+            position: relative;
+            padding: 35px;
+
+            background: rgba(12, 12, 15, 0.88);
+            border: 1px solid #5c1a91;
+            border-radius: 20px;
+
+            box-shadow:
+                0 20px 70px rgba(0, 0, 0, 0.7),
+                inset 0 0 30px rgba(138, 43, 226, 0.04);
+
+            backdrop-filter: blur(15px);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            color: #c58aff;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 14px 16px;
+
+            background: #09090b;
+            color: white;
+
+            border: 1px solid #3b145b;
+            border-radius: 10px;
+
+            outline: none;
+            font-family: inherit;
+            transition: 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #a020f0;
+            box-shadow:
+                0 0 0 2px rgba(160, 32, 240, 0.15),
+                0 0 18px rgba(160, 32, 240, 0.35);
+            transform: translateY(-1px);
+        }
+
+        input::placeholder {
+            color: #555;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        /* BOTÕES */
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 15px;
+
+            border: none;
+            border-radius: 10px;
+
+            font-family: inherit;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit {
+            background: linear-gradient(135deg, #7b1fa2, #b000ff);
+            color: white;
+
+            box-shadow:
+                0 0 15px rgba(176, 0, 255, 0.4);
+        }
+
+        .submit:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                0 0 15px #b000ff,
+                0 0 35px rgba(176, 0, 255, 0.5);
+        }
+
+        .cancel {
+            background: transparent;
+            color: #c58aff;
+            border: 1px solid #5c1a91;
+        }
+
+        .cancel:hover {
+            background: rgba(138, 43, 226, 0.1);
+            border-color: #a020f0;
+            color: white;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 30px 0 10px;
+            color: #555;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+        }
+
+        footer span {
+            color: #8a2be2;
+        }
+
+        /* RESPONSIVO */
+
+        @media (max-width: 650px) {
+            .container {
+                padding: 15px;
+            }
+
+            header {
+                height: 120px;
+            }
+
+            #logo {
+                height: 80px;
+            }
+
+            h1 {
+                letter-spacing: 6px;
+            }
+
+            .subtitle {
+                font-size: 0.6rem;
+                letter-spacing: 3px;
+            }
+
+            form {
+                padding: 22px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <img
+                id="logo"
+                src="toppng.com-decepticon-png-transparent-339x346.png"
+                alt="Logo Decepticon">
+        </header>
+
+        <section class="title">
+            <h1>BLACKOUT</h1>
+            <p class="subtitle">SYSTEM REGISTRATION // ACCESS TERMINAL</p>
+        </section>
+
+        <form action="" method="post">
+
+            <div class="form-grid">
+
+                <div class="field">
+                    <label for="nome">Nome</label>
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        placeholder="Digite seu nome"
+                        required>
+                </div>
+
+                <div class="field">
+                    <label for="sobrenome">Sobrenome</label>
+                    <input
+                        type="text"
+                        id="sobrenome"
+                        name="sobrenome"
+                        placeholder="Digite seu sobrenome"
+                        required>
+                </div>
+
+                <div class="field full">
+                    <label for="email">E-mail</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="seu@email.com"
+                        required>
+                </div>
+
+                <div class="field">
+                    <label for="nascimento">Data de nascimento</label>
+                    <input
+                        type="date"
+                        id="nascimento"
+                        name="nascimento"
+                        required>
+                </div>
+
+                <div class="field">
+                    <label for="cpf">CPF</label>
+                    <input
+                        type="text"
+                        id="cpf"
+                        name="cpf"
+                        placeholder="Apenas números"
+                        inputmode="numeric"
+                        maxlength="11"
+                        required>
+                </div>
+
+                <div class="field">
+                    <label for="cep">CEP</label>
+                    <input
+                        type="text"
+                        id="cep"
+                        name="cep"
+                        placeholder="00000000"
+                        inputmode="numeric"
+                        maxlength="8"
+                        required>
+                </div>
+
+                <div class="field">
+                    <label for="estado">Estado</label>
+                    <select id="estado" name="estado" required>
+                        <option value="" selected disabled>Selecione</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="SP">São Paulo</option>
+                        <option value="BA">Bahia</option>
+                    </select>
+                </div>
+
+                <div class="field full">
+                    <label for="cidade">Cidade</label>
+                    <input
+                        type="text"
+                        id="cidade"
+                        name="cidade"
+                        placeholder="Digite sua cidade"
+                        required>
+                </div>
+
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="submit">
+                    Enviar dados
+                </button>
+
+                <button type="reset" class="cancel">
+                    Cancelar
+                </button>
+            </div>
+
+        </form>
+
+        <footer>
+            <p>BLACKOUT SYSTEMS <span>//</span> TODOS OS DIREITOS RESERVADOS</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
+```

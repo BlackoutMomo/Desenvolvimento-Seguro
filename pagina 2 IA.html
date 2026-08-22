@@ -327,93 +327,69 @@
             <p class="subtitle">SYSTEM REGISTRATION // ACCESS TERMINAL</p>
         </section>
 
-        <form action="" method="post">
+        <form action="cadastro.php" method="post">
 
             <div class="form-grid">
 
                 <div class="field">
-                    <label for="nome">Nome</label>
+                    <label for="nome">Nome Completo</label>
                     <input
                         type="text"
                         id="nome"
                         name="nome"
                         placeholder="Digite seu nome"
-                        required>
+                        >
                 </div>
 
                 <div class="field">
-                    <label for="sobrenome">Sobrenome</label>
-                    <input
-                        type="text"
-                        id="sobrenome"
-                        name="sobrenome"
-                        placeholder="Digite seu sobrenome"
-                        required>
-                </div>
-
-                <div class="field full">
-                    <label for="email">E-mail</label>
+                    <label for="Email">Email</label>
                     <input
                         type="email"
                         id="email"
                         name="email"
-                        placeholder="seu@email.com"
-                        required>
+                        placeholder="Digite seu email"
+                        >
                 </div>
 
-                <div class="field">
-                    <label for="nascimento">Data de nascimento</label>
+                <div class="field full">
+                    <label for="telefone">Telefone</label>
                     <input
-                        type="date"
-                        id="nascimento"
-                        name="nascimento"
-                        required>
+                        type="tel"
+                        id="telefone"
+                        name="telefone"
+                        placeholder="(00) 00000-0000"
+                        >
                 </div>
 
                 <div class="field">
+                    <label for="senha">Senha</label>
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Digite sua senha"
+                        >
+                </div>
+
+                <div class="field">
+                    <label for="endereco">Endereço</label>
+                    <input
+                        type="text"
+                        id="endereco"
+                        name="endereco"
+                        placeholder="Digite seu endereço"
+                        >
+                </div>
+
+                <div class="field full">
                     <label for="cpf">CPF</label>
                     <input
                         type="text"
                         id="cpf"
                         name="cpf"
-                        placeholder="Apenas números"
-                        inputmode="numeric"
-                        maxlength="11"
-                        required>
+                        placeholder="Digite seu CPF"
+                        >
                 </div>
-
-                <div class="field">
-                    <label for="cep">CEP</label>
-                    <input
-                        type="text"
-                        id="cep"
-                        name="cep"
-                        placeholder="00000000"
-                        inputmode="numeric"
-                        maxlength="8"
-                        required>
-                </div>
-
-                <div class="field">
-                    <label for="estado">Estado</label>
-                    <select id="estado" name="estado" required>
-                        <option value="" selected disabled>Selecione</option>
-                        <option value="MG">Minas Gerais</option>
-                        <option value="SP">São Paulo</option>
-                        <option value="BA">Bahia</option>
-                    </select>
-                </div>
-
-                <div class="field full">
-                    <label for="cidade">Cidade</label>
-                    <input
-                        type="text"
-                        id="cidade"
-                        name="cidade"
-                        placeholder="Digite sua cidade"
-                        required>
-                </div>
-
             </div>
 
             <div class="buttons">
@@ -421,10 +397,16 @@
                     Enviar dados
                 </button>
 
-                <button type="reset" class="cancel">
-                    Cancelar
+                <button type="submit" class="modificar" formaction="modificar.php">
+                    Modificar (Insira o CPF para modificar)
+                </button>
+                <button type="submit" class="cancel" formaction="apagar.php">
+                    Apagar dados (Insira o CPF para apagar)
                 </button>
             </div>
+            
+
+
 
         </form>
 

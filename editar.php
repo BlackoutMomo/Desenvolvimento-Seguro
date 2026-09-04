@@ -1,11 +1,17 @@
+<?php
+include 'db.php';
+$id = $_GET['id'];
+$sql = "SELECT * FROM usuario WHERE id=$id";
+$res = $conn->query($sql);
+$cliente = $res->fetch_assoc();
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Blackout</title>
+    <title>Blackout - Editar Cliente</title>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap');
@@ -18,8 +24,7 @@
 
         body {
             min-height: 100vh;
-            background:
-                radial-gradient(circle at 50% 0%, #35105c 0%, #11051d 35%, #050505 70%);
+            background: radial-gradient(circle at 50% 0%, #35105c 0%, #11051d 35%, #050505 70%);
             color: #fff;
             font-family: 'Orbitron', sans-serif;
             overflow-x: hidden;
@@ -44,80 +49,16 @@
             padding: 30px 20px;
         }
 
-        /* HEADER */
-
-        header {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            height: 150px;
-            margin-bottom: 35px;
-
-            background: rgba(10, 10, 10, 0.75);
-            border: 1px solid #8a2be2;
-            border-radius: 20px;
-
-            box-shadow:
-                0 0 10px #8a2be2,
-                0 0 35px rgba(138, 43, 226, 0.35),
-                inset 0 0 30px rgba(138, 43, 226, 0.08);
-
-            backdrop-filter: blur(10px);
-        }
-
-        header::before,
-        header::after {
-            content: "";
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            border-color: #d000ff;
-        }
-
-        header::before {
-            top: 12px;
-            left: 12px;
-            border-top: 2px solid;
-            border-left: 2px solid;
-        }
-
-        header::after {
-            right: 12px;
-            bottom: 12px;
-            border-right: 2px solid;
-            border-bottom: 2px solid;
-        }
-
-        #logo {
-            height: 105px;
-            filter:
-                drop-shadow(0 0 5px #8a2be2) drop-shadow(0 0 18px #8a2be2);
-            transition: 0.4s;
-        }
-
-        #logo:hover {
-            transform: scale(1.08) rotate(2deg);
-            filter:
-                drop-shadow(0 0 8px #d000ff) drop-shadow(0 0 30px #8a2be2);
-        }
-
-        /* TITULO */
-
         .title {
             text-align: center;
             margin-bottom: 35px;
         }
 
         h1 {
-            font-size: clamp(2.5rem, 7vw, 5rem);
-            letter-spacing: 12px;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            letter-spacing: 10px;
             color: #fff;
-            text-shadow:
-                0 0 5px #fff,
-                0 0 15px #8a2be2,
-                0 0 35px #8a2be2;
+            text-shadow: 0 0 5px #fff, 0 0 15px #8a2be2, 0 0 35px #8a2be2;
         }
 
         .subtitle {
@@ -127,20 +68,15 @@
             letter-spacing: 5px;
         }
 
-        /* FORMULARIO */
-
         form {
             position: relative;
             padding: 35px;
-
             background: rgba(12, 12, 15, 0.88);
             border: 1px solid #5c1a91;
             border-radius: 20px;
-
             box-shadow:
                 0 20px 70px rgba(0, 0, 0, 0.7),
                 inset 0 0 30px rgba(138, 43, 226, 0.04);
-
             backdrop-filter: blur(15px);
         }
 
@@ -167,40 +103,25 @@
             text-transform: uppercase;
         }
 
-        input,
-        select {
+        input {
             width: 100%;
             padding: 14px 16px;
-
             background: #09090b;
             color: white;
-
             border: 1px solid #3b145b;
             border-radius: 10px;
-
             outline: none;
             font-family: inherit;
             transition: 0.3s;
         }
 
-        input:focus,
-        select:focus {
+        input:focus {
             border-color: #a020f0;
             box-shadow:
                 0 0 0 2px rgba(160, 32, 240, 0.15),
                 0 0 18px rgba(160, 32, 240, 0.35);
             transform: translateY(-1px);
         }
-
-        input::placeholder {
-            color: #555;
-        }
-
-        select {
-            cursor: pointer;
-        }
-
-        /* BOTÕES */
 
         .buttons {
             display: flex;
@@ -214,15 +135,12 @@
             padding: 15px;
             text-align: center;
             text-decoration: none;
-
             border: none;
             border-radius: 10px;
-
             font-family: inherit;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-
             cursor: pointer;
             transition: 0.3s;
         }
@@ -230,9 +148,7 @@
         .submit {
             background: linear-gradient(135deg, #7b1fa2, #b000ff);
             color: white;
-
-            box-shadow:
-                0 0 15px rgba(176, 0, 255, 0.4);
+            box-shadow: 0 0 15px rgba(176, 0, 255, 0.4);
         }
 
         .submit:hover {
@@ -254,8 +170,6 @@
             color: white;
         }
 
-        /* FOOTER */
-
         footer {
             text-align: center;
             padding: 30px 0 10px;
@@ -268,45 +182,11 @@
             color: #8a2be2;
         }
 
-        /* RESPONSIVO */
-
         @media (max-width: 650px) {
-            .container {
-                padding: 15px;
-            }
-
-            header {
-                height: 120px;
-            }
-
-            #logo {
-                height: 80px;
-            }
-
-            h1 {
-                letter-spacing: 6px;
-            }
-
-            .subtitle {
-                font-size: 0.6rem;
-                letter-spacing: 3px;
-            }
-
-            form {
-                padding: 22px;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .field.full {
-                grid-column: auto;
-            }
-
-            .buttons {
-                flex-direction: column;
-            }
+            .container { padding: 15px; }
+            form { padding: 22px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .buttons { flex-direction: column; }
         }
     </style>
 </head>
@@ -315,23 +195,36 @@
 
     <div class="container">
 
-        <header>
-            <img id="logo" src="toppng.com-decepticon-png-transparent-339x346.png" alt="Logo Decepticon">
-        </header>
-
         <section class="title">
             <h1>BLACKOUT</h1>
-            <p class="subtitle">SYSTEM REGISTRATION // ACCESS TERMINAL</p>
+            <p class="subtitle">EDITAR CLIENTE</p>
         </section>
 
-        <section class="title">
-            <h1>Logado</h1>
-        </section>
-        
-        <div class="buttons">
-            <a href="../aula04_09.php" class="btn cancel">Visualizar Tabela</a>
-            <a href="logout.php" class="btn submit">Desconectar do Sistema</a>
-        </div>
+        <form action="salvar_edicao.php" method="POST">
+            <input type="hidden" name="id" value="<?= $cliente['id'] ?>">
+
+            <div class="form-grid">
+                <div class="field full">
+                    <label for="usuario">Usuário</label>
+                    <input type="text" id="usuario" name="usuario" value="<?= $cliente['usuario'] ?>" required>
+                </div>
+
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="<?= $cliente['email'] ?>" required>
+                </div>
+
+                <div class="field">
+                    <label for="telefone">Telefone</label>
+                    <input type="text" id="telefone" name="telefone" value="<?= $cliente['telefone'] ?>">
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="submit">Salvar</button>
+                <a href="index.php" class="btn cancel">Cancelar</a>
+            </div>
+        </form>
 
         <footer>
             <p>BLACKOUT SYSTEMS <span>//</span> TODOS OS DIREITOS RESERVADOS</p>

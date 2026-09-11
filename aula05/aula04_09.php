@@ -197,7 +197,7 @@
         </section>
 
         <div class="header-acoes">
-            <a href="aulaEmail/cadastro.php" class="btn-novo">+ Novo Cadastro</a>
+            <a href="cadastro.php" class="btn-novo">+ Novo Cadastro</a>
         </div>
 
         <section class="lista">

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Blackout</title>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+            <header>
+    <img
+        id="logo"
+        src="toppng.com-decepticon-png-transparent-339x346.png"
+        alt="Logo Decepticon">
+
+ 
+</header>
+ 
+        <section class="title">
+            <h1>BLACKOUT</h1>
+            <p class="subtitle" id="form-subtitle">SYSTEM REGISTRATION // ACCESS TERMINAL</p>
+        </section>
+
+        <form action="login.php" method="post" id="form-login">
+            <div class="form-grid">
+                <div class="field">
+                    <label for="usuario-login">Usuário</label>
+                    <input type="text" id="usuario-login" name="usuario_login" placeholder="Digite seu usuário">
+                </div>
+
+                <div class="field">
+                    <label for="senha-login">Senha</label>
+                    <input type="password" id="senha-login" name="senha_login" placeholder="Digite sua senha">
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="submit">Iniciar Sessão</button>
+            </div>
+            
+            <button type="button" class="toggle-link" onclick="alternarFormularios()">Não tem acesso? Registrar-se no sistema</button>
+        </form>
+
+
+        <form action="cadastro.php" method="post" id="form-cadastro" class="hidden">
+            <div class="form-grid">
+            
+
+                <div class="field">
+                    <label for="usuarioNovo">Novo Usuário</label>
+                    <input type="text" id="usuarioNovo" name="usuarioNovo" placeholder="Escolha um usuário">
+                </div>
+
+                <div class="field">
+                    <label for="senhaNovo">Criar Senha</label>
+                    <input type="password" id="senhaNovo" name="senhaNovo" placeholder="Crie uma senha">
+                </div>
+
+
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="submit">Cadastrar Dados</button>
+            </div>
+
+            <button type="button" class="toggle-link" onclick="alternarFormularios()">Já possui registro? Acessar terminal</button>
+        </form>
+
+        <footer>
+            <p>BLACKOUT SYSTEMS <span>//</span> TODOS OS DIREITOS RESERVADOS</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function alternarFormularios() {
+            // Pega os elementos pelo ID
+            const formLogin = document.getElementById('form-login');
+            const formCadastro = document.getElementById('form-cadastro');
+            const subtitle = document.getElementById('form-subtitle');
+
+            // Alterna a classe 'hidden' entre eles
+            formLogin.classList.toggle('hidden');
+            formCadastro.classList.toggle('hidden');
+
+            // Opcional: Muda o subtítulo dependendo de qual form está visível
+            if (formLogin.classList.contains('hidden')) {
+                subtitle.innerText = "SYSTEM REGISTRATION // CREATE ACCOUNT";
+            } else {
+                subtitle.innerText = "SYSTEM REGISTRATION // ACCESS TERMINAL";
+            }
+        }
+    </script>
+</body>
+</html> 

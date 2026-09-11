@@ -1,0 +1,509 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(circle at 50% 0%, #35105c 0%, #13071f 35%, #060607 72%);
+
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Fundo em grade */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+
+    background:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+
+    background-size: 42px 42px;
+
+    mask-image:
+        linear-gradient(to bottom, black, transparent 85%);
+
+    z-index: -1;
+}
+
+/* Container */
+
+.container {
+    width: 100%;
+    max-width: 650px;
+    margin: auto;
+    padding: 28px 20px;
+}
+
+/* Header */
+
+header {
+    position: relative;
+
+    height: 125px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 22px;
+
+    background:
+        rgba(10, 10, 12, 0.84);
+
+    border:
+        1px solid rgba(176, 92, 255, 0.3);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 18px 55px rgba(0,0,0,0.55),
+        0 0 30px rgba(138,43,226,0.14),
+        inset 0 0 30px rgba(138,43,226,0.035);
+
+    backdrop-filter: blur(14px);
+}
+
+/* Cantos neon */
+
+header::before,
+header::after {
+    content: "";
+    position: absolute;
+
+    width: 25px;
+    height: 25px;
+}
+
+header::before {
+    top: 12px;
+    left: 12px;
+
+    border-top: 2px solid #b54cff;
+    border-left: 2px solid #b54cff;
+}
+
+header::after {
+    bottom: 12px;
+    right: 12px;
+
+    border-right: 2px solid #b54cff;
+    border-bottom: 2px solid #b54cff;
+}
+
+/* Logo */
+
+#logo {
+    height: 88px;
+
+    filter:
+        drop-shadow(0 0 7px rgba(176,0,255,0.55))
+        drop-shadow(0 0 18px rgba(138,43,226,0.35));
+
+    transition: 0.35s ease;
+}
+
+#logo:hover {
+    transform: scale(1.07);
+
+    filter:
+        drop-shadow(0 0 10px #d000ff)
+        drop-shadow(0 0 28px rgba(176,0,255,0.65));
+}
+
+/* Título */
+
+.title {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+
+    font-size: clamp(2.7rem, 8vw, 4.5rem);
+
+    letter-spacing: 10px;
+
+    color: white;
+
+    text-shadow:
+        0 0 6px rgba(255,255,255,0.6),
+        0 0 16px rgba(176,0,255,0.55),
+        0 0 35px rgba(138,43,226,0.35);
+}
+
+.subtitle {
+    margin-top: 10px;
+
+    color: #9f82b4;
+
+    font-family: 'Orbitron', sans-serif;
+
+    font-size: 0.62rem;
+
+    letter-spacing: 2.6px;
+
+    line-height: 1.6;
+}
+
+/* Formulários */
+
+form {
+    position: relative;
+
+    padding: 32px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17, 14, 21, 0.96),
+            rgba(8, 8, 10, 0.97)
+        );
+
+    border:
+        1px solid rgba(176,92,255,0.22);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 22px 70px rgba(0,0,0,0.65),
+        inset 0 0 35px rgba(138,43,226,0.035);
+
+    backdrop-filter: blur(15px);
+
+    animation: aparecer 0.35s ease;
+}
+
+/* Animação ao trocar login/cadastro */
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Classe usada no JS */
+
+.hidden {
+    display: none;
+}
+
+/* Grid dos campos */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Labels */
+
+label {
+    color: #c58aff;
+
+    font-family: 'Orbitron', sans-serif;
+
+    font-size: 0.67rem;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+/* Inputs */
+
+input {
+    width: 100%;
+
+    padding: 15px 16px;
+
+    background:
+        rgba(7,7,9,0.96);
+
+    color: white;
+
+    border:
+        1px solid rgba(176,92,255,0.18);
+
+    border-radius: 11px;
+
+    outline: none;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+
+    transition: 0.3s ease;
+}
+
+input::placeholder {
+    color: #504955;
+}
+
+input:hover {
+    border-color:
+        rgba(176,92,255,0.35);
+}
+
+input:focus {
+    border-color: #a020f0;
+
+    box-shadow:
+        0 0 0 2px rgba(160,32,240,0.08),
+        0 0 18px rgba(160,32,240,0.2);
+
+    transform: translateY(-1px);
+}
+
+/* Botões principais */
+
+.buttons {
+    display: flex;
+    margin-top: 28px;
+}
+
+button {
+    font-family: 'Orbitron', sans-serif;
+}
+
+.submit {
+    width: 100%;
+
+    padding: 16px;
+
+    border: none;
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #711ba0,
+            #b000ff
+        );
+
+    color: white;
+
+    font-size: 0.7rem;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px rgba(176,0,255,0.27);
+
+    transition: 0.3s ease;
+}
+
+.submit:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 30px rgba(176,0,255,0.42),
+        0 0 28px rgba(176,0,255,0.25);
+}
+
+.submit:active {
+    transform: translateY(-1px);
+}
+
+/* Botão para alternar login/cadastro */
+
+.toggle-link {
+    display: block;
+
+    width: 100%;
+
+    margin-top: 20px;
+    padding: 4px;
+
+    background: transparent;
+
+    border: none;
+
+    color: #9d7ab5;
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: 0.75rem;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.toggle-link:hover {
+    color: #d2a5f5;
+
+    text-shadow:
+        0 0 10px rgba(176,0,255,0.28);
+}
+
+/* Footer */
+
+footer {
+    text-align: center;
+
+    padding: 26px 0 5px;
+
+    color: #474149;
+
+    font-family: 'Orbitron', sans-serif;
+
+    font-size: 0.55rem;
+
+    letter-spacing: 1.4px;
+}
+
+footer span {
+    color: #8a2be2;
+}
+
+/* Responsivo */
+
+@media (max-width: 650px) {
+
+    body {
+        align-items: flex-start;
+    }
+
+    .container {
+        padding: 18px;
+    }
+
+    header {
+        height: 105px;
+    }
+
+    #logo {
+        height: 72px;
+    }
+
+    h1 {
+        font-size: 2.45rem;
+        letter-spacing: 6px;
+    }
+
+    .subtitle {
+        font-size: 0.54rem;
+        letter-spacing: 1.8px;
+    }
+
+    form {
+        padding: 24px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+header {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 125px;
+    margin-bottom: 22px;
+
+    background: rgba(10, 10, 12, 0.84);
+
+    border: 1px solid rgba(176, 92, 255, 0.3);
+    border-radius: 22px;
+
+    box-shadow:
+        0 18px 55px rgba(0,0,0,0.55),
+        0 0 30px rgba(138,43,226,0.14),
+        inset 0 0 30px rgba(138,43,226,0.035);
+
+    backdrop-filter: blur(14px);
+}
+
+/* botão de sair no topo */
+
+.logout-form-top {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    margin: 0;
+    padding: 0;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.logout-button-top {
+    padding: 10px 16px;
+
+    background: rgba(138, 43, 226, 0.08);
+
+    color: #c58aff;
+
+    border: 1px solid rgba(176, 92, 255, 0.35);
+    border-radius: 10px;
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.logout-button-top:hover {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6a1b8f,
+            #a020f0
+        );
+
+    border-color: #d000ff;
+
+    box-shadow:
+        0 0 12px rgba(208, 0, 255, 0.45),
+        0 0 25px rgba(138, 43, 226, 0.25);
+
+    transform: translateY(-2px);
+}

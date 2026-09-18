@@ -196,9 +196,7 @@
             <p class="subtitle">LISTA DE CLIENTES</p>
         </section>
 
-        <div class="header-acoes">
-            <a href="cadastro.php" class="btn-novo">+ Novo Cadastro</a>
-        </div>
+
 
         <section class="lista">
             <table>

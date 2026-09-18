@@ -1,42 +1,104 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Blackout</title>
+    
+    <style>
+        /* --- ESTILOS DO MODAL DE ERRO CUSTOMIZADO --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85); /* Fundo escuro semi-transparente */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(3px);
+        }
 
+        /* Classe para esconder o modal */
+        .modal-overlay.escondido {
+            display: none;
+            opacity: 0;
+        }
+
+        .modal-content {
+            background-color: #0a0a0a;
+            border: 2px solid #ff2a2a; /* Vermelho neon/alerta */
+            box-shadow: 0 0 20px rgba(255, 42, 42, 0.4);
+            padding: 30px 40px;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace; /* Fonte estilo terminal */
+            color: #fff;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .modal-content h2 {
+            color: #ff2a2a;
+            margin-top: 0;
+            letter-spacing: 2px;
+            font-size: 1.5rem;
+        }
+
+        .modal-content p {
+            color: #ccc;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .btn-fechar-modal {
+            background-color: transparent;
+            border: 1px solid #ff2a2a;
+            color: #ff2a2a;
+            padding: 10px 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-fechar-modal:hover {
+            background-color: #ff2a2a;
+            color: #000;
+            box-shadow: 0 0 10px #ff2a2a;
+        }
+    </style>
 </head>
 
 <body>
 
     <div class="container">
-
-            <header>
-    <img
-        id="logo"
-        src="toppng.com-decepticon-png-transparent-339x346.png"
-        alt="Logo Decepticon">
-
- 
-</header>
+        <header>
+            <img id="logo" src="toppng.com-decepticon-png-transparent-339x346.png" alt="Logo Decepticon">
+        </header>
  
         <section class="title">
             <h1>BLACKOUT</h1>
             <p class="subtitle" id="form-subtitle">SYSTEM REGISTRATION // ACCESS TERMINAL</p>
         </section>
 
+        <!-- Formulário de Login -->
         <form action="login.php" method="post" id="form-login">
             <div class="form-grid">
                 <div class="field">
                     <label for="usuario-login">Usuário</label>
-                    <input type="text" id="usuario-login" name="usuario_login" placeholder="Digite seu usuário">
+                    <input type="text" id="usuario-login" name="usuario_login" placeholder="Digite seu usuário" required>
                 </div>
 
                 <div class="field">
                     <label for="senha-login">Senha</label>
-                    <input type="password" id="senha-login" name="senha_login" placeholder="Digite sua senha">
+                    <input type="password" id="senha-login" name="senha_login" placeholder="Digite sua senha" required>
                 </div>
             </div>
 
@@ -47,22 +109,18 @@
             <button type="button" class="toggle-link" onclick="alternarFormularios()">Não tem acesso? Registrar-se no sistema</button>
         </form>
 
-
+        <!-- Formulário de Cadastro -->
         <form action="cadastro.php" method="post" id="form-cadastro" class="hidden">
             <div class="form-grid">
-            
-
                 <div class="field">
                     <label for="usuarioNovo">Novo Usuário</label>
-                    <input type="text" id="usuarioNovo" name="usuarioNovo" placeholder="Escolha um usuário">
+                    <input type="text" id="usuarioNovo" name="usuarioNovo" placeholder="Escolha um usuário" required>
                 </div>
 
                 <div class="field">
                     <label for="senhaNovo">Criar Senha</label>
-                    <input type="password" id="senhaNovo" name="senhaNovo" placeholder="Crie uma senha">
+                    <input type="password" id="senhaNovo" name="senhaNovo" placeholder="Crie uma senha" required>
                 </div>
-
-
             </div>
 
             <div class="buttons">
@@ -75,21 +133,46 @@
         <footer>
             <p>BLACKOUT SYSTEMS <span>//</span> TODOS OS DIREITOS RESERVADOS</p>
         </footer>
-
     </div>
 
+    <!-- ESTRUTURA DO MODAL (Fica escondido por padrão) -->
+    <div id="modalErro" class="modal-overlay escondido">
+        <div class="modal-content">
+            <h2>ACCESS DENIED</h2>
+            <p>Falha na autenticação.<br>Usuário ou senha incorretos.</p>
+            <button class="btn-fechar-modal" onclick="fecharModal()">Abortar</button>
+        </div>
+    </div>
+
+    <!-- SCRIPT DA PÁGINA -->
     <script>
+        // Função para fechar o pop-up customizado
+        function fecharModal() {
+            document.getElementById('modalErro').classList.add('escondido');
+        }
+
+        // Verifica se há erros na URL ao carregar a página
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Se tiver '?erro=1' na URL, exibe o modal
+            if (urlParams.get('erro') === '1') {
+                document.getElementById('modalErro').classList.remove('escondido');
+                
+                // Limpa a URL para que o erro não volte ao atualizar a página (F5)
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        };
+
+        // Alternar entre formulários (Login / Cadastro)
         function alternarFormularios() {
-            // Pega os elementos pelo ID
             const formLogin = document.getElementById('form-login');
             const formCadastro = document.getElementById('form-cadastro');
             const subtitle = document.getElementById('form-subtitle');
 
-            // Alterna a classe 'hidden' entre eles
             formLogin.classList.toggle('hidden');
             formCadastro.classList.toggle('hidden');
 
-            // Opcional: Muda o subtítulo dependendo de qual form está visível
             if (formLogin.classList.contains('hidden')) {
                 subtitle.innerText = "SYSTEM REGISTRATION // CREATE ACCOUNT";
             } else {
@@ -98,4 +181,4 @@
         }
     </script>
 </body>
-</html> 
+</html>

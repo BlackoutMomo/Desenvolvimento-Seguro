@@ -1,10 +1,8 @@
 <?php
 include 'db.php';
 
-// Pegando os dados com os mesmos "names" que estão no formulário HTML
 $usuario = $_POST['usuarioNovo'];
 $senha = $_POST['senhaNovo'];
-// Inserindo direto no banco, sem criptografia (Apenas para teste)
 $sql = "INSERT INTO usuario (usuario, senha) VALUES ('$usuario', '$senha')";
 
 if ($conn->query($sql) === TRUE) {

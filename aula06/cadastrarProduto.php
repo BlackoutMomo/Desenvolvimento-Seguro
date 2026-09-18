@@ -10,7 +10,8 @@ $sql = "INSERT INTO produtos (produto, descricao, preco) VALUES ('$produto', '$d
 
 if ($conn->query($sql) === TRUE) {
     echo "Cadastro realizado com sucesso!";
-    echo "<script>location.href = 'loja.php';</script>"; // Redireciona para a página de cadastro após o sucesso
+    header("Location: loja.php"); // Redireciona para a página de cadastro após o sucesso
+    exit();
 } else {
     echo "Erro ao cadastrar: " . $conn->error;
 }

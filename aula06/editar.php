@@ -197,7 +197,7 @@ $cliente = $res->fetch_assoc();
 
         <section class="title">
             <h1>BLACKOUT</h1>
-            <p class="subtitle">EDITAR CLIENTE</p>
+            <p class="subtitle">EDITAR PRODUTO</p>
         </section>
 
         <form action="salvar_edicao.php" method="POST">

@@ -1,19 +1,20 @@
 <?php
 include 'db.php';
 
-// Pegando os dados do formulário de login
 $usuario = $_POST['usuario_login'];
 $senha = $_POST['senha_login'];
 
-// Busca no banco um registro que tenha EXATAMENTE esse usuário e essa senha
+// DICA DE SEGURANÇA: Considere usar Prepared Statements no futuro para evitar SQL Injection
 $sql = "SELECT * FROM usuario WHERE usuario = '$usuario' AND senha = '$senha'";
 $resultado = $conn->query($sql);
 
 if ($resultado->num_rows > 0) {
-    header("Location: loja.php"); // Redireciona para a página da loja
-
+    header("Location: loja.php");
+    exit();
 } else {
-    echo "Erro: Usuário ou senha incorretos!";
+    // Redireciona de volta para o formulário informando o erro
+    header("Location: index.html?erro=1");
+    exit();
 }
 
 $conn->close();

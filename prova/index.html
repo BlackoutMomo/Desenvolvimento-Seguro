@@ -3,10 +3,350 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Blackout</title>
+    <title>Blackout // Access Terminal</title>
     
     <style>
+        /* =========================================================
+           MGSV : THE PHANTOM PAIN UI THEME (LOGIN / IDROID)
+           ========================================================= */
+
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Teko:wght@400;500;600;700&display=swap');
+
+        :root {
+            --mgsv-bg: #0a0a0a;
+            --mgsv-panel: rgba(15, 17, 15, 0.92);
+            --mgsv-yellow: #e4bb24; /* iDroid Yellow */
+            --mgsv-red: #a81c11;    /* Diamond Dogs Red */
+            --mgsv-olive: #454d3d;  /* Tactical Olive Drab */
+            --mgsv-text: #e0e0e0;
+            --mgsv-muted: #7a7a7a;
+            --mgsv-border: rgba(228, 187, 36, 0.25);
+        }
+
+        /* Reset Básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--mgsv-bg);
+            background-image: radial-gradient(circle at 50% 20%, #1a1c18 0%, #0a0a0a 80%);
+            color: var(--mgsv-text);
+            font-family: 'Share Tech Mono', monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Efeito de Scanline Militar */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+            background-size: 8px 8px;
+            z-index: -1;
+        }
+
+        /* Container Principal (Estilo Dossiê/Painel iDroid) */
+        .container {
+            background: var(--mgsv-panel);
+            border: 1px solid var(--mgsv-border);
+            border-left: 4px solid var(--mgsv-yellow);
+            padding: 40px 35px;
+            width: 100%;
+            max-width: 440px;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+        }
+
+        /* Marcador estilo Mother Base no topo direito */
+        .container::before {
+            content: "REC // 1984";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 0.75rem;
+            color: var(--mgsv-red);
+            letter-spacing: 2px;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Header & Logo */
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        #logo {
+            max-width: 85px;
+            height: auto;
+            /* Filtro para deixar a logo amarelada/tática */
+            filter: sepia(1) hue-rotate(5deg) saturate(3) opacity(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        /* Títulos */
+        .title {
+            text-align: left;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--mgsv-border);
+            padding-bottom: 10px;
+            position: relative;
+        }
+
+        .title::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background-color: var(--mgsv-yellow);
+        }
+
+        .title h1 {
+            font-family: 'Teko', sans-serif;
+            font-size: 2.8rem;
+            letter-spacing: 3px;
+            color: var(--mgsv-yellow);
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            margin-top: 5px;
+            color: var(--mgsv-muted);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .subtitle::before {
+            content: ">> ";
+            color: var(--mgsv-red);
+        }
+
+        /* Campos do Formulário */
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        label {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--mgsv-yellow);
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--mgsv-muted);
+            padding: 12px 15px;
+            color: var(--mgsv-text);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s ease;
+            border-radius: 0; /* Sem bordas arredondadas no militar */
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: var(--mgsv-yellow);
+            background: rgba(228, 187, 36, 0.05);
+            border-left: 3px solid var(--mgsv-yellow);
+        }
+
+        input::placeholder {
+            color: #4a4a4a;
+        }
+
+        /* Botões */
+        .buttons {
+            margin-bottom: 15px;
+        }
+
+        button.submit {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--mgsv-yellow);
+            color: #000;
+            border: none;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            /* Recorte chanfrado tático */
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+        }
+
+        button.submit:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* Botão de Alternar Formulário */
+        button.toggle-link {
+            background: transparent;
+            border: none;
+            color: var(--mgsv-muted);
+            font-size: 0.8rem;
+            font-family: 'Share Tech Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 100%;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.2s ease;
+            text-align: left;
+        }
+
+        button.toggle-link::before {
+            content: "[ ";
+            color: var(--mgsv-yellow);
+        }
+
+        button.toggle-link::after {
+            content: " ]";
+            color: var(--mgsv-yellow);
+        }
+
+        button.toggle-link:hover {
+            color: var(--mgsv-text);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 30px;
+            text-align: left;
+            border-top: 1px solid var(--mgsv-border);
+            padding-top: 15px;
+        }
+
+        footer p {
+            font-size: 0.7rem;
+            color: var(--mgsv-muted);
+            letter-spacing: 1px;
+        }
+
+        footer span {
+            color: var(--mgsv-yellow);
+        }
+
+        /* Ocultação de Elementos */
+        .hidden, .escondido {
+            display: none !important;
+        }
+
+        /* =========================================================
+           ESTRUTURA DO MODAL DE ERRO (FASE DE ALERTA / INIMIGO)
+           ========================================================= */
+
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(10, 10, 10, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .modal-content {
+            background: #0d0505;
+            border: 2px solid var(--mgsv-red);
+            border-left: 6px solid var(--mgsv-red);
+            padding: 30px;
+            max-width: 380px;
+            width: 90%;
+            text-align: left;
+            box-shadow: 0 0 20px rgba(168, 28, 17, 0.4);
+            position: relative;
+        }
+
+        .modal-content::before {
+            content: "ALERT";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--mgsv-red);
+            color: #fff;
+            font-family: 'Teko', sans-serif;
+            font-size: 1rem;
+            padding: 0 10px;
+            letter-spacing: 2px;
+        }
+
+        .modal-content h2 {
+            font-family: 'Teko', sans-serif;
+            color: var(--mgsv-red);
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .modal-content p {
+            color: var(--mgsv-text);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 25px;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .btn-fechar-modal {
+            background: var(--mgsv-red);
+            color: #fff;
+            border: none;
+            padding: 10px 25px;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        }
+
+        .btn-fechar-modal:hover {
+            background: #ff3333;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
     </style>
 </head>
 

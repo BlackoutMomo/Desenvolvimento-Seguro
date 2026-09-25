@@ -8,7 +8,22 @@
     <title>Blackout Books // Catálogo de Livros</title>
 
     <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap');
+/* =========================================================
+   MGSV : THE PHANTOM PAIN UI THEME (DIAMOND DOGS / iDROID)
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Teko:wght@400;500;600;700&display=swap');
+
+:root {
+    --mgsv-bg: #0a0a0a;
+    --mgsv-panel: rgba(15, 17, 15, 0.92);
+    --mgsv-yellow: #e4bb24; /* iDroid Yellow */
+    --mgsv-red: #a81c11;    /* Diamond Dogs Red */
+    --mgsv-olive: #454d3d;  /* Tactical Olive Drab */
+    --mgsv-text: #e0e0e0;
+    --mgsv-muted: #7a7a7a;
+    --mgsv-border: rgba(228, 187, 36, 0.25);
+}
 
 * {
     margin: 0;
@@ -18,50 +33,74 @@
 
 body {
     min-height: 100vh;
-    background: radial-gradient(circle at 50% 0%, #35105c 0%, #11051d 35%, #050505 70%);
-    color: #fff;
-    font-family: 'Orbitron', sans-serif;
+    background-color: var(--mgsv-bg);
+    background-image: 
+        radial-gradient(circle at 50% 20%, #1a1c18 0%, #0a0a0a 80%);
+    color: var(--mgsv-text);
+    font-family: 'Share Tech Mono', monospace; /* Fonte militar/dados */
     overflow-x: hidden;
 }
 
+/* Efeito de Scanline e Sujeira da Tela do iDroid */
 body::before {
     content: "";
     position: fixed;
     inset: 0;
     pointer-events: none;
     background:
-        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-    background-size: 40px 40px;
-    /* Adicionado -webkit- para suporte no Chrome antigo e Safari */
-    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
-    mask-image: linear-gradient(to bottom, black, transparent);
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+    background-size: 8px 8px; /* Grid bem fechado militar */
+    z-index: 9999;
+    opacity: 0.5;
 }
 
 .container {
     width: 100%;
     max-width: 1300px;
     margin: auto;
-    padding: 30px 20px;
+    padding: 40px 20px;
 }
 
+/* Títulos MGSV Style */
 .title {
-    text-align: center;
-    margin-bottom: 35px;
+    text-align: left; /* Alinhado à esquerda como logs militares */
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--mgsv-border);
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.title::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 150px;
+    height: 2px;
+    background-color: var(--mgsv-yellow);
 }
 
 h1 {
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    letter-spacing: 10px;
-    color: #fff;
-    text-shadow: 0 0 5px #fff, 0 0 15px #8a2be2, 0 0 35px #8a2be2;
+    font-family: 'Teko', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    letter-spacing: 4px;
+    color: var(--mgsv-yellow);
+    line-height: 1;
+    text-transform: uppercase;
 }
 
 .subtitle {
-    margin-top: 10px;
-    color: #a879c9;
-    font-size: 0.75rem;
-    letter-spacing: 5px;
+    margin-top: 5px;
+    color: var(--mgsv-muted);
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.subtitle::before {
+    content: ">> ";
+    color: var(--mgsv-red);
 }
 
 /* HEADER DE AÇÕES */
@@ -69,28 +108,35 @@ h1 {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 12px;
+    gap: 15px;
     margin-bottom: 20px;
 }
 
-.btn-novo {
-    padding: 12px 20px;
-    background: linear-gradient(135deg, #7b1fa2, #b000ff);
-    color: #fff;
-    border-radius: 10px;
-    text-decoration: none;
-    font-size: 0.75rem;
-    font-weight: 700;
+/* Botões Estilo Militar / Tático (Com chanfro nas pontas) */
+.btn-novo, .btn-sair {
+    font-family: 'Teko', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
-    box-shadow: 0 0 15px rgba(176, 0, 255, 0.4);
-    transition: 0.3s;
-    display: inline-block;
+    text-decoration: none;
+    padding: 6px 25px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    background: transparent;
+    position: relative;
+    clip-path: polygon(10px 0, 10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.btn-novo {
+    background-color: var(--mgsv-yellow);
+    color: #000;
 }
 
 .btn-novo:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 20px #b000ff, 0 0 35px rgba(176, 0, 255, 0.5);
+    background-color: #fff;
+    color: #000;
 }
 
 .form-logout {
@@ -98,191 +144,199 @@ h1 {
 }
 
 .btn-sair {
-    padding: 12px 20px;
-    background: transparent;
-    color: #ff5c8a;
-    border: 1px solid #ff5c8a;
-    border-radius: 10px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: 0.3s;
+    background-color: var(--mgsv-red);
+    color: #fff;
 }
 
 .btn-sair:hover {
-    background: rgba(255, 92, 138, 0.12);
-    box-shadow:
-        0 0 12px rgba(255, 92, 138, 0.45),
-        0 0 25px rgba(255, 92, 138, 0.2);
-    transform: translateY(-2px);
+    background-color: #ff3333;
 }
 
-/* TABELA */
+/* TABELA iDROID / DATABASE */
 .lista {
-    padding: 25px;
-    background: rgba(12, 12, 15, 0.88);
-    border: 1px solid #5c1a91;
-    border-radius: 20px;
-    box-shadow:
-        0 20px 70px rgba(0, 0, 0, 0.7),
-        inset 0 0 30px rgba(138, 43, 226, 0.04);
-    /* Adicionado -webkit- para suporte de desfoque no Safari */
-    -webkit-backdrop-filter: blur(15px);
-    backdrop-filter: blur(15px);
+    background: var(--mgsv-panel);
+    border: 1px solid var(--mgsv-border);
+    border-left: 4px solid var(--mgsv-yellow); /* Faixa lateral de destaque */
+    padding: 20px;
     overflow-x: auto;
+    position: relative;
+}
+
+/* Marcador estilo Mother Base no topo direito da tabela */
+.lista::before {
+    content: "REC // 1984";
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    font-size: 0.7rem;
+    color: var(--mgsv-red);
+    letter-spacing: 2px;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     white-space: nowrap;
 }
 
 thead th {
     text-align: left;
-    padding: 12px 14px;
-    color: #a879c9;
-    letter-spacing: 1px;
+    padding: 15px 14px;
+    color: var(--mgsv-yellow);
+    letter-spacing: 2px;
     text-transform: uppercase;
-    font-size: 0.7rem;
-    border-bottom: 1px solid #3b145b;
+    font-family: 'Teko', sans-serif;
+    font-size: 1.2rem;
+    border-bottom: 2px solid var(--mgsv-border);
 }
 
 tbody td {
-    padding: 14px 12px;
-    border-bottom: 1px solid rgba(92, 26, 145, 0.4);
-    color: #ddd;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--mgsv-text);
     vertical-align: middle;
 }
 
+tbody tr {
+    transition: background-color 0.2s;
+}
+
 tbody tr:hover {
-    background: rgba(138, 43, 226, 0.08);
+    background-color: rgba(228, 187, 36, 0.1);
+    border-left: 2px solid var(--mgsv-yellow);
 }
 
 /* ESTILIZAÇÃO DOS DADOS */
 .isbn-code {
-    font-size: 0.75rem;
-    color: #888;
+    font-size: 0.7rem;
+    color: var(--mgsv-muted);
     display: block;
-    margin-top: 2px;
-    font-family: monospace;
+    margin-top: 4px;
 }
 
 .badge {
-    padding: 3px 8px;
-    border-radius: 6px;
+    padding: 2px 6px;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     display: inline-block;
+    border: 1px solid;
+    background: rgba(0,0,0,0.5);
 }
 
 .badge-categoria {
-    background: rgba(0, 240, 255, 0.15);
-    border: 1px solid rgba(0, 240, 255, 0.4);
-    color: #00f0ff;
+    border-color: var(--mgsv-yellow);
+    color: var(--mgsv-yellow);
 }
 
 .badge-genero {
-    background: rgba(138, 43, 226, 0.2);
-    border: 1px solid rgba(176, 0, 255, 0.4);
-    color: #d182ff;
+    border-color: var(--mgsv-olive);
+    color: #a3b392;
+    margin-top: 4px;
 }
 
 .preco {
-    color: #00ffaa;
+    color: #fff;
     font-weight: 700;
-    font-size: 1.1rem;
+}
+
+.preco::before {
+    content: "GMP "; /* Moeda do MGSV */
+    color: var(--mgsv-yellow);
+    font-size: 0.7rem;
 }
 
 .qtd-estoque {
-    color: #ffb700;
-    font-weight: 700;
+    color: var(--mgsv-text);
 }
 
 .resumo-cell {
-    white-space: normal; /* Sobrescreve o comportamento geral da tabela */
-    max-width: 220px;
-    font-size: 0.85rem;
-    color: #aaa;
-    line-height: 1.2;
-    /* Adicionado para que palavras/links não ultrapassem a largura */
+    white-space: normal;
+    max-width: 250px;
+    font-size: 0.8rem;
+    color: var(--mgsv-muted);
+    line-height: 1.4;
     word-wrap: break-word; 
     overflow-wrap: break-word;
 }
 
-/* AÇÕES */
+/* AÇÕES DA TABELA */
 .acoes {
     display: flex;
     gap: 8px;
 }
 
 .btn-acao {
-    padding: 8px 14px;
-    font-size: 0.65rem;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    letter-spacing: 1px;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-family: 'Share Tech Mono', monospace;
     text-transform: uppercase;
     text-decoration: none;
-    display: inline-block;
-    /* Adicionado para centralizar textos nos links que agem como botões */
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
     text-align: center;
 }
 
 .btn-editar {
-    background: linear-gradient(135deg, #7b1fa2, #b000ff);
-    color: #fff;
+    color: var(--mgsv-yellow);
+    border-color: var(--mgsv-yellow);
+    background: transparent;
 }
 
 .btn-editar:hover {
-    box-shadow: 0 0 15px #b000ff;
+    background: var(--mgsv-yellow);
+    color: #000;
 }
 
 .btn-apagar {
+    color: var(--mgsv-red);
+    border-color: var(--mgsv-red);
     background: transparent;
-    color: #ff5c8a;
-    border: 1px solid #ff5c8a;
 }
 
 .btn-apagar:hover {
-    background: rgba(255, 92, 138, 0.15);
+    background: var(--mgsv-red);
+    color: #fff;
 }
 
 .sem-registros {
     text-align: center;
-    padding: 30px;
-    color: #888;
-    letter-spacing: 2px;
-    font-size: 0.8rem;
+    padding: 40px;
+    color: var(--mgsv-red);
+    letter-spacing: 3px;
+    font-size: 1rem;
+    text-transform: uppercase;
 }
 
 footer {
-    text-align: center;
+    text-align: left;
     padding: 30px 0 10px;
-    color: #555;
-    font-size: 0.7rem;
-    letter-spacing: 3px;
+    color: var(--mgsv-muted);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    border-top: 1px solid var(--mgsv-border);
+    margin-top: 40px;
+    text-transform: uppercase;
 }
 
 footer span {
-    color: #8a2be2;
+    color: var(--mgsv-yellow);
 }
 
 @media (max-width: 768px) {
     .container { padding: 15px; }
     .header-acoes { flex-direction: column; align-items: stretch; }
-    .btn-novo, .btn-sair { width: 100%; text-align: center; }
+    .btn-novo, .btn-sair { width: 100%; text-align: center; clip-path: none; border-radius: 4px; }
+    .title { text-align: center; }
+    .title::after { left: 50%; transform: translateX(-50%); }
 }
 </style>
 </head>
